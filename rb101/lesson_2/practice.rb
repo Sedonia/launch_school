@@ -1,10 +1,14 @@
-array1 = [1, 2, 3]
-array2 = [4, 5, 6]
-# => [1, 4, 2, 5, 3, 6] 
+# array = [1, 2, 3]
 
-def merge(arr1, arr2)
-  new_array = arr1.zip(arr2)
-  new_array.flatten
-end
+# mapped_array = array.map { |num| num + 1 }
 
-p merge(array1, array2)
+# mapped_array.tap { |value| p value }              
+
+# mapped_and_tapped = mapped_array.tap { |value| p 'hello' }   # ‘hello’
+
+# p mapped_and_tapped                                            # => [2, 3, 4]
+
+(1..10)                         .tap { |x| p x}
+  .to_a                         .tap { |x| p x}
+  .select { |x| x.even? }       .tap { |x| p x}
+  .map { |x| x*x }              .tap { |x| p x}
