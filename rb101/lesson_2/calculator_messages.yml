@@ -1,0 +1,7 @@
+
+welcome: "Welcome to Calculator! Enter your name:"
+valid_name: "Please enter a valid name."
+valid_number: "Please enter a valid number."
+error: "Something went wrong. Please enter a valid number."
+
+

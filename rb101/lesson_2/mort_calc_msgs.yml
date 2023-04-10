@@ -1,0 +1,10 @@
+
+error: "<<< Oops! Something went wrong. Please enter a valid number. >>>"
+amount: "What is your loan amount? Do not include commas."
+apr: "What is the APR on this loan? (example: 5.4 for 5.4%)"
+space: ""
+duration: "What is the duration of this loan in years?"
+start: "Okay, let's get started!"
+whole: " ** Whole numbers only **"
+start_over: "Would you like to use this tool again? (Y to start over)"
+asterisks: "************************************"

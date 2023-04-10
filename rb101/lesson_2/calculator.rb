@@ -1,9 +1,12 @@
+require 'yaml'
+MESSAGES = YAML.load_file('calculator_messages.yml')
+
 def prompt(message)
   puts "=> #{message}"
 end
 
 def valid_number?(num)
-  num.to_i != 0
+  num.to_i.to_s == num
 end
 
 def operation_to_message(op)
@@ -19,14 +22,14 @@ def operation_to_message(op)
   end
 end
 
-prompt("Welcome to Calculator! Enter your name:")
+prompt(MESSAGES['welcome'])
 
 name = nil
 loop do
   name = gets.chomp
 
   if name.empty?
-    prompt("Please enter a valid name.")
+    prompt(MESSAGES['valid_name'])
   else
     break
   end
@@ -37,13 +40,13 @@ prompt("Hello #{name}!")
 loop do # main loop
   num1 = nil
   loop do
-    prompt("Please enter a number:")
+    prompt(MESSAGES['valid_number'])
     num1 = gets.chomp
 
     if valid_number?(num1)
       break
     else
-      prompt("Something went wrong. Please enter a valid number.")
+      prompt(MESSAGES['error'])
     end
   end
 
@@ -55,7 +58,7 @@ loop do # main loop
     if valid_number?(num2)
       break
     else
-      prompt("Something went wrong. Please enter a valid number.")
+      prompt(MESSAGES['error'])
     end
   end
 
