@@ -34,7 +34,7 @@ def invalid_under100?(num)
 end
 
 def valid_under100?(num)
-  valid_number?(num) && positive?(num) && num.to_i <= 100
+  valid_number?(num) && num.to_i <= 100
 end
 
 def invalid_over100?(num)
