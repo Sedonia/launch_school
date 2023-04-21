@@ -1,6 +1,8 @@
 require 'yaml'
 MESSAGES = YAML.load_file('mort_calc_msgs.yml')
 
+MONTHS_IN_YR = 12
+
 def prompt(message)
   puts "=> #{message}"
 end
@@ -63,7 +65,7 @@ def calculate_monthly_interest
     prompt MESSAGES['apr']
     apr = gets.chomp.gsub('%', '')
     if valid_under100?(apr)
-      monthly_interest = ((apr.to_f / 12) / 100)
+      monthly_interest = ((apr.to_f / MONTHS_IN_YR) / 100)
       break
     elsif invalid_over100?(apr)
       puts MESSAGES['too_high']
@@ -80,7 +82,7 @@ def calculate_duration
     prompt MESSAGES['duration']
     duration = gets.chomp
     if valid_positive_number?(duration) && duration.to_f <= 35
-      duration_in_months = duration.to_f * 12
+      duration_in_months = duration.to_f * MONTHS_IN_YR
       break
     elsif duration.to_f > 35 && positive?(duration)
       puts MESSAGES['too_long']
@@ -130,9 +132,9 @@ loop do
   prompt MESSAGES['working']
   puts MESSAGES['space']
   puts MESSAGES['asterisks']
-  puts "Montly Interest Rate is #{apr_to_monthly.truncate(4)}%"
-  puts "Loan Duration is #{duration_in_months.truncate(2)} months"
-  puts "Monthly Payment is $#{monthly_payment.truncate(2)}"
+  puts "Montly Interest Rate is #{format("%.2f", apr_to_monthly)}%"
+  puts "Loan Duration is #{duration_in_months.round()} months"
+  puts "Monthly Payment is $#{format("%.2f", monthly_payment)}"
   puts MESSAGES['asterisks']
   puts MESSAGES['space']
   prompt MESSAGES['start_over']
