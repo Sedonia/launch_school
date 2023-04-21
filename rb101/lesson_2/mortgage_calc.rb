@@ -50,7 +50,7 @@ def validate_amount
     loan_amount = gets.chomp.gsub(',', '').gsub('$', '')
     if valid_over100?(loan_amount)
       break
-    elsif invalid_under100?(loan_amount) || loan_amount.to_f == 0
+    elsif invalid_under100?(loan_amount) || loan_amount == 0
       puts MESSAGES['low_amount']
     else
       puts MESSAGES['error']
@@ -100,7 +100,7 @@ Welcome to the Mortgage Calculator!
    Use this tool to calculate your:
     - Monthly Interest Rate
     - Loan Duration (in months)
-    - Monthly Payment 
+    - Monthly Payment
 
    You will need to provide:
     - Your Loan amount
@@ -132,9 +132,9 @@ loop do
   prompt MESSAGES['working']
   puts MESSAGES['space']
   puts MESSAGES['asterisks']
-  puts "Montly Interest Rate is #{format("%.2f", apr_to_monthly)}%"
+  puts "Montly Interest Rate is #{format('%.4f', apr_to_monthly)}%"
   puts "Loan Duration is #{duration_in_months.round()} months"
-  puts "Monthly Payment is $#{format("%.2f", monthly_payment)}"
+  puts "Monthly Payment is $#{format('%.2f', monthly_payment)}"
   puts MESSAGES['asterisks']
   puts MESSAGES['space']
   prompt MESSAGES['start_over']
