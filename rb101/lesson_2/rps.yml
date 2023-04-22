@@ -1,11 +1,12 @@
 player_pick: "You pick: "
 computer_pick: "Computer picks: "
-play: Please enter 1 for rock, 2 for paper, 3 for scissors, 4 for lizard, or 5 Spock.
+play: Please enter rock (r), paper (p), scissors (sc), lizard (l), or Spock (sp).
 winning: "** You win that one! **"
 losing: "** Computer wins that one. **"
 tie: "** It's a tie! **"
 you_win: Congratulations!! You're the <<GRAND WINNER>>! 
 computer_wins: Darn, the computer won. Better luck next time! 
 again?: Would you like to play again? (Y to replay)
-thanks: Thanks for playing! Bye now.
+thanks: Okay, thanks for playing! Bye now.
 space:  
+invalid_entry: Oops, that's not a valid entry. Try again.
