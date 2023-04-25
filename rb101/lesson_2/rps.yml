@@ -10,3 +10,19 @@ again?: Would you like to play again? (Y to replay)
 thanks: Okay, thanks for playing! Bye now.
 space:  
 invalid_entry: Oops, that's not a valid entry. Try again.
+welcome: |
+  Welcome to Rock, Paper, Scissors, Lizard, Spock!
+      A twist on the classic game of rock, paper, scissors.
+      You'll be playing against the computer.
+      The first to reach three wins takes the title of <<GRAND WINNER>>!
+
+  => Here are the rules:
+      Scissors > Paper; Paper > Rock;
+      Rock > Lizard; Lizard > Spock;
+      Spock > Scissors; Scissors > Lizard;
+      Lizard > Paper; Paper > Spock;
+      Spock > Rock; Rock > Scissors
+
+  => Example: You play Spock, the computer plays rock. You win because Spock vaporizes rock!
+
+  => Easy peasy. Okay, let's PLAY!
