@@ -78,6 +78,12 @@ def clear_board
   system "clear"
 end
 
+def clear_score
+  counter1 = 0 
+  counter2 = 0
+  [counter1, counter2]
+end
+
 clear_board
 prompt MESSAGES['welcome']
 
@@ -118,11 +124,11 @@ loop do
 
   if player_counter == NUMBER_TO_WIN
     prompt MESSAGES['you_win']
-    player_counter = 0 && computer_counter = 0
+    player_counter, computer_counter = clear_score # multiple assignment used here
     break unless play_again?
   elsif computer_counter == NUMBER_TO_WIN
     prompt MESSAGES['computer_wins']
-    player_counter = 0 && computer_counter = 0
+    player_counter, computer_counter = clear_score # and here
     break unless play_again?
   end
 end
