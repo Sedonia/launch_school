@@ -3,4 +3,5 @@ words = gets.chomp
 
 count = words.delete(" ").chars.count
 
-puts "There are #{count} characters in #{words}."
+puts "There are #{count} characters in \"#{words}\"."
+p words
