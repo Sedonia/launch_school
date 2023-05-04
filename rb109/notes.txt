@@ -1,0 +1,47 @@
+Examples from Srdjan's "Advice for Ruby Programming Foundations Written Assessment" blog series. [https://medium.com/how-i-started-learning-coding-from-scratch/advice-for-109-written-assessment-part-2-594060594f6e]
+
+Learn to Use Programming Terms (important!!)
+
+*****************************
+1  a = 'hello'
+2  b = a
+3  a = 'goodbye'
+*****************************
+
+On `line 1` of this code, we are initializing the local variable `a` to a string object with the value `hello`. The string object with the value `hello` is assigned to the local variable, so now local variable `a` is referencing that string object. In other words, local variable `a` now points to the physical space in memory where this string object with the value `hello` is stored. 
+
+On `line 2` we initialize the local variable `b` to the object that the local variable `a` is referencing. Since the local variable `a` references a string object with the value `hello`, that string object is now assigned to the local variables `a` and `b` and, at this point, both of these local variables are pointing at the same object (the same physical space in memory), which is the string object with the value `hello`.
+
+On `line 3` we reassign the local variable `a` to a string object with the value `goodbye`. That string object with the value `goodbye` is now assigned to the local variable `a` and the local variable `a` now references a different string object (a new physical space in memory) with a different value (`goodbye`). So now the local variable `a` points to a string object with the value `goodbye`, while the local variable `b` still points to a string object with the value `hello`. 
+
+*****************************
+1  def example(str)
+2    i = 3
+3    loop do
+4      puts str
+5      i -= 1
+6      break if i == 0
+7    end
+8  end
+9
+10 example('hello')
+*****************************
+
+On `lines 1-8` we are defining the method `example` which takes one parameter. One `line 10` we are calling the method `example` and passing in the string `hello` as an argument to it (meaning the `example` method). 
+
+Note: Methods are DEFINED with parameters. They are CALLED with arguments.
+
+On `line 2` of this code, we are initializing the local variable `i` and assigning it to a (literal) integer with value `3`.
+
+On `line 3` we are calling the method `loop` and passing in the `do..end` block as an argument.Note that the block here is passed to a method call as an argument.
+
+Also on `line 4` we are calling the method `puts` and passing in the local variable `str` to it as an argument. Note that "passing in as an argument" will be used a lot on the assessment.
+
+On `line 5` the local variable `i` is reassigned. `-=` is reassignment and is syntactical sugar for `i = i - 1`. So in this code we are reassigning the local variable i to the return value of `i - 1`. 
+
+On `line 6` we are breaking out of the loop by using the keyword `break` if the value of the object that the local variable `i` is referencing is equal to 0.
+
+On `line 10` we are calling the method `example` and passing in the string `hello` as an argument.
+
+Finally, this code outputs string `hello` three times and returns `nil`. That is important to distinguish! The last evaluated expression is returned since we don't have an explicit return inside of the method definition. That last evaluated expression is `break if i == 0` in this case, which returns `nil`.
+

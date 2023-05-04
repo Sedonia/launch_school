@@ -1,0 +1,18 @@
+# PEDAC
+# Problem statement
+
+# Understand the Problem
+#  - Expected inputs and outputs
+#     inputs: 
+#     outputs: 
+#   - Make the requirement explicit
+#     
+#   - Identify rules
+#     
+# Examples
+#   
+# Data Structure
+#   - 
+# Algorithm
+#   - 
+# Code: 
