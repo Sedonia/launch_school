@@ -1,10 +1,12 @@
-def example(str)
-  i = 3
-  loop do
-    puts str
-    i -= 1
-    break if i == 0
-  end
+
+a = 4
+b = 2
+
+loop do
+  c = 3
+  a = c
+  break
 end
 
-example('hello')
+puts a
+puts b

@@ -1,6 +1,6 @@
 Examples from Srdjan's "Advice for Ruby Programming Foundations Written Assessment" blog series. [https://medium.com/how-i-started-learning-coding-from-scratch/advice-for-109-written-assessment-part-2-594060594f6e]
 
-Learn to Use Programming Terms (important!!)
+Learn to Use Programming Terms
 
 *****************************
 1  a = 'hello'
@@ -12,7 +12,7 @@ On `line 1` of this code, we are initializing the local variable `a` to a string
 
 On `line 2` we initialize the local variable `b` to the object that the local variable `a` is referencing. Since the local variable `a` references a string object with the value `hello`, that string object is now assigned to the local variables `a` and `b` and, at this point, both of these local variables are pointing at the same object (the same physical space in memory), which is the string object with the value `hello`.
 
-On `line 3` we reassign the local variable `a` to a string object with the value `goodbye`. That string object with the value `goodbye` is now assigned to the local variable `a` and the local variable `a` now references a different string object (a new physical space in memory) with a different value (`goodbye`). So now the local variable `a` points to a string object with the value `goodbye`, while the local variable `b` still points to a string object with the value `hello`. 
+On `line 3` we reassign the local variable `a` to a string object with the value `goodbye`. That string object with the value `goodbye` is now assigned to the local variable `a` and the local variable `a` now references a different string object (a new physical space in memory) than before, with a different value (`goodbye`). So now the local variable `a` points to a string object with the value `goodbye`, while the local variable `b` still points to a string object with the value `hello`. 
 
 *****************************
 1  def example(str)
@@ -31,7 +31,7 @@ On `lines 1-8` we are defining the method `example` which takes one parameter. O
 
 Note: Methods are DEFINED with parameters. They are CALLED with arguments.
 
-On `line 2` of this code, we are initializing the local variable `i` and assigning it to a (literal) integer with value `3`.
+On `line 2` of this code, we are initializing the local variable `i` and assigning to it an integer with value `3`.
 
 On `line 3` we are calling the method `loop` and passing in the `do..end` block as an argument.Note that the block here is passed to a method call as an argument.
 
@@ -45,3 +45,37 @@ On `line 10` we are calling the method `example` and passing in the string `hell
 
 Finally, this code outputs string `hello` three times and returns `nil`. That is important to distinguish! The last evaluated expression is returned since we don't have an explicit return inside of the method definition. That last evaluated expression is `break if i == 0` in this case, which returns `nil`.
 
+Variable Scoping
+
+*****************************
+1  a = 4
+2
+3  loop do
+4   a = 5
+5   b = 3
+6   break
+7  end
+8
+9  puts a
+10 puts b
+*****************************
+
+This code has two scopes. An innter scope, which is defined by the `do..end` block (passed to the loop method) and the outer scope, which is everything else. Note that locals variables that are initialized in an inner scope CANNOT be accessed in the outer scope, but local variables that are initialized in the outer scope, can be accessed in an innter scope. #### Note that method definitions have their own scope ####
+
+So in this code, on `line 1`, we initialize the local variable `a` to an integer object with the value `4`. On `line 3` we are calling the `loop` method and passing to it the `do..end` block as an argument. On `line 4` we reassign the local variable `a` to an integer object with the value `5`. On `line 5` we initialize the local variable `b` and assign it to the integer object with the value `3`. On `line 6` we break out of the loop using the keyword `break`. On `line 9` we call the `puts` method and pass in the local variable `a`. Because the local variable `a` was reassigned on `line 4` to the integer object with the value `5`, the code on `line 9` outputs `5` and returns `nil`. The `puts` method always returns `nil`. Because the local variable `b` was initialized on `line 5`, inisde of the `do..end` block, it is not visible to the outside scope on `line 10` and throws an exception / raises an rror. The error that it raises is "undefined local variable or method".
+
+*****************************
+1  a = 4
+2  b = 2
+3  
+4  loop do
+5    c = 3
+6    a = c
+7    break
+8  end
+9
+10 puts a
+11 puts b
+*****************************
+
+Here we initialize the local variable `a` on `line 1` and assign it to the integer object with the value `4`. On `line 2` we initialize the local variable `b` and assign it to the integer object with the value `2`. On `line 4` we call the method `loop` and pass to it the `do..end` block spanning `line 4` to `line 8` as an argument. On `line 5` we initialize the local variable `c` and assign it to the integer object with the value `3`. On `line 6` we reassign the local variable `a` that was initialized on `line 1` to the value of the integer object that is referenced by local variable `c`. On `line 7` we break out of the loop using the keyword `break`. On `line 10` we call the `puts` method and pass to it the value of (?) the local variable `a` as an argument. Because the local variable `a` was reassigned on `line 6` to the value of the integer object assigned to the local variable `c`, `a` points to the integer object with the value `3`. This is true even though the local variable `c` was initialized on `line 5`, inside of the inner scope of the `do..end` block. On `line 10` we call the `puts` method and pass to it the value of the integer object that is referenced by the local variable `b`. ## Is this correct??? Check Slack - I remember that someone else asked about this recently in the 101-109 channel.
