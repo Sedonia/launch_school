@@ -1,0 +1,248 @@
+Examples from Srdjan's "Advice for Ruby Programming Foundations Written Assessment" blog series. [https://medium.com/how-i-started-learning-coding-from-scratch/advice-for-109-written-assessment-part-2-594060594f6e]
+
+>> Learn to Use Programming Terms <<
+
+*****************************
+1  a = 'hello'
+2  b = a
+3  a = 'goodbye'
+*****************************
+
+On `line 1` of this code, we are initializing the local variable `a` to a string object with the value `hello`. The string object with the value `hello` is assigned to the local variable, so now local variable `a` is referencing that string object. In other words, local variable `a` now points to the physical space in memory where this string object with the value `hello` is stored. 
+
+On `line 2` we initialize the local variable `b` to the object that the local variable `a` is referencing. Since the local variable `a` references a string object with the value `hello`, that string object is now assigned to the local variables `a` and `b` and, at this point, both of these local variables are pointing at the same object (the same physical space in memory), which is the string object with the value `hello`.
+
+On `line 3` we reassign the local variable `a` to a string object with the value `goodbye`. That string object with the value `goodbye` is now assigned to the local variable `a` and the local variable `a` now references a different string object (a new physical space in memory) than before, with a different value (`goodbye`). So now the local variable `a` points to a string object with the value `goodbye`, while the local variable `b` still points to a string object with the value `hello`. 
+
+*****************************
+1  def example(str)
+2    i = 3
+3    loop do
+4      puts str
+5      i -= 1
+6      break if i == 0
+7    end
+8  end
+9
+10 example('hello')
+*****************************
+
+On `lines 1-8` we are defining the method `example` which takes one parameter. One `line 10` we are calling the method `example` and passing in the string `hello` as an argument to it (meaning the `example` method). 
+
+Note: Methods are DEFINED with parameters. They are CALLED with arguments.
+
+On `line 2` of this code, we are initializing the local variable `i` and assigning to it an integer with value `3`.
+
+On `line 3` we are calling the method `loop` and passing in the `do..end` block as an argument.Note that the block here is passed to a method call as an argument.
+
+Also on `line 4` we are calling the method `puts` and passing in the local variable `str` to it as an argument. Note that "passing in as an argument" will be used a lot on the assessment.
+
+On `line 5` the local variable `i` is reassigned. `-=` is reassignment and is syntactical sugar for `i = i - 1`. So in this code we are reassigning the local variable i to the return value of `i - 1`. 
+
+On `line 6` we are breaking out of the loop by using the keyword `break` if the value of the object that the local variable `i` is referencing is equal to 0.
+
+On `line 10` we are calling the method `example` and passing in the string `hello` as an argument.
+
+Finally, this code outputs string `hello` three times and returns `nil`. That is important to distinguish! The last evaluated expression is returned since we don't have an explicit return inside of the method definition. That last evaluated expression is `break if i == 0` in this case, which returns `nil`.
+
+
+
+>> Variable Scoping <<
+
+*****************************
+1  a = 4
+2
+3  loop do
+4   a = 5
+5   b = 3
+6   break
+7  end
+8
+9  puts a
+10 puts b
+*****************************
+
+This code has two scopes. An innter scope, which is defined by the `do..end` block (passed to the loop method) and the outer scope, which is everything else. Note that locals variables that are initialized in an inner scope CANNOT be accessed in the outer scope, but local variables that are initialized in the outer scope, can be accessed in an innter scope. #### Note that method definitions have their own scope ####
+
+So in this code, on `line 1`, we initialize the local variable `a` to an integer object with the value `4`. On `line 3` we are calling the `loop` method and passing to it the `do..end` block as an argument. On `line 4` we reassign the local variable `a` to an integer object with the value `5`. On `line 5` we initialize the local variable `b` and assign it to the integer object with the value `3`. On `line 6` we break out of the loop using the keyword `break`. On `line 9` we call the `puts` method and pass in the local variable `a`. Because the local variable `a` was reassigned on `line 4` to the integer object with the value `5`, the code on `line 9` outputs `5` and returns `nil`. The `puts` method always returns `nil`. Because the local variable `b` was initialized on `line 5`, inisde of the `do..end` block, it is not visible to the outside scope on `line 10` and throws an exception / raises an rror. The error that it raises is "undefined local variable or method".
+
+*****************************
+1  a = 4
+2  b = 2
+3  
+4  loop do
+5    c = 3
+6    a = c
+7    break
+8  end
+9
+10 puts a
+11 puts b
+*****************************
+
+Here we initialize the local variable `a` on `line 1` and assign it to the integer object with the value `4`. On `line 2` we initialize the local variable `b` and assign it to the integer object with the value `2`. On `line 4` we call the method `loop` and pass to it the `do..end` block spanning `line 4` to `line 8` as an argument. 
+
+On `line 5` we initialize the local variable `c` and assign it to the integer object with the value `3`. On `line 6` we reassign the local variable `a` that was initialized on `line 1` to the value of the integer object that is referenced by local variable `c`. On `line 7` we break out of the loop using the keyword `break`. 
+
+On `line 10` we call the `puts` method and pass to it the value of (?) the local variable `a` as an argument. Because the local variable `a` was reassigned on `line 6` to the value of the integer object assigned to the local variable `c`, `a` points to the integer object with the value `3`. This is true even though the local variable `c` was initialized on `line 5`, inside of the inner scope of the `do..end` block. On `line 10` we call the `puts` method and pass to it the value of the integer object that is referenced by the local variable `b`. ## Is this correct??? Check Slack - I remember that someone else asked about this recently in the 101-109 channel.
+
+
+
+>> Variable Shadowing <<
+
+*****************************
+1  a = 4
+2  b = 2
+3  
+4  2.times do |a|
+5    a = 5
+6    puts a
+7  end
+8
+9  puts a
+10 puts b
+*****************************
+
+The code outputs 5, 5, 4, 2
+
+On `line 1` we initialize the local variable `a` and assign it to the integer object with the value `4`. One `line 2` we initialize the local variable `b` and assign it to the integer object with the value `2`. 
+
+On `line 4` we call the Integer#times method on the integer `2` and pass the `do..end` block to it that spans `line 4` to `line 7` as an argument with one parameter `a`. On `line 5` it looks like we are reassigning the local variable `a` that was initialized outside of the block, however the parameter `a` of the block "shadows" the local variable `a`, making the variable initialized in the outer scope invisible inside of the inner scope. So within the block, the (newly initialized?) local variable `a` is assigned to the integer object which has the value `5` and passed in as a parameter to the block. The local variable `a` that is initialized on `line 1`, in the outside scope, still points to the integer object with the value `4`. It was not reassigned inside of the block. One `line 6` the `puts` method is called and the value of the object assigned to variable `a`, which is `5`, is passed in as an argument. The result is that the integer `5` is printed twice (the output) and the times method returns `2`, which is the integer on which the method was called. <<<< Pay attention to this return value!!! >>>>>
+
+On `line 9` the `puts` method is called and the value of the object assigned to the local variable `a`, initialized on `line 1` in the outside scope, is passed in as an argument. This outputs `4` and returns `nil`.
+
+On `line 10` the `puts` method is called and the value of the object assigned to the local variable `b` is passed in as an argument. This outputs `2` and returns `nil`.
+
+
+
+>> Each, Map, and Select methods <<
+
+Link to video from LS [https://launchschool.com/blog/live-session-beginning-ruby-part-3]
+
+Array#each (returns self)
+
+*****************************
+[1, 2, 3, 4].each { |num| puts num }
+*****************************
+
+The code above will output each numer in the array on a new line and returns the original array [1, 2, 3, 4]. `Array#each` iterates through the array object, passing each element of the array to the block, it then runs the block for each element, and when it finishes it returns the original array.
+
+Array#map (returns a new array whose elements are the return values from the block)
+
+*****************************
+[1, 2, 3, 4].map { |num| puts num }
+*****************************
+
+The code above also outputs each number in the array on a new line, but it returns a new array containing the return value of each iteration of the block. Since the `puts` method always returns `nil`, this code returns a new array with `nil` in place of each element of the array [nil, nil, nil, nil]. So like the each method, `Array#map` iterates through the array object, passing each element of the array to the block, it then runs the block for each element. It differs from `Array#each` in that it does not return the original array (self). It returns a new array containing the return value of each iteration of the block, replacing the original elements of the array on which the map method was called with the return value of those elements after they are passed through the block. Again, because the `puts` method always returns `nil`, the new array in this example returns `nil` for every element of the new array.
+
+Array#select (returns a new array containing those elements of self for which the block returns a truthy value)
+
+*****************************
+[1, 2, 3, 4].select { |num| puts num }
+*****************************
+
+The code above also outputs each number in the array on a new line, but it returns an empty array. Like the `map` method, the `Array#select` method iterates through the array object, passing each element of the array to the block, and it returns a new array. Unlike the `map` method, however, the `select` method does not replace any of the elements of the old array when it creates the new array. It instead evaluates the truthiness of the return value of the block after each element is passed into it and places only those return values that evaluate to true in the new array. Remember that everything in Ruby is truthy and evaluates to the boolean `true` except for `false` and `nil`. This is important! >> Don't forget to say that the `select` method considers if the return value EVALUATES to `true` or not. << The reason that the code above returns an empty array is because the `puts` method in the block that is passed as an argument to the `select` method returns `nil` for every iteration of the elements in the original array. Nothing evaluates to true and so nothing is places into the new array.
+
+
+
+>> Mutating and Non-Mutating Ruby Methods <<
+
+*****************************
+1  a = 'hello'
+2
+3  puts a   # => hello
+4  puts a.object_id   # => 70368527757720 (this number will be different for you)
+5
+6  a.upcase! 
+7
+8  puts a     # => HELLO
+9  puts a.object_id    # => 70368527757720 (this number will be the same as the one above)
+*****************************
+
+On `line 1` we initialize the local variable `a` and assign <<to it>> the string object with the value `hello`. 
+
+On `line 3` we call the `puts` method on the variable `a`, which outputs the string `hello` to which the variable `a` references and returns the value `nil`. 
+
+On line 4 we are calling the method `object_id` on the local variable `a` to check the ID of the object that this variable is referencing. 
+
+On line 6, we are calling the `String#upcase!` method on the object variable `a` is referencing. This method is mutating, such that it changes the value of the object that is calling it (the caller), so the object stays the same. 
+
+We can see this on line 8 where we call the `puts` method on `a`, which outputs the string `HELLO` and returns `nil`. 
+
+On line 9 we can see by the output of calling the `puts` method on the return value of the `object_id` method that the string object that the local variable `a` references has the same ID. It is the same object.
+
+You can tell by referencing the Ruby docs if a method is mutating or not (though some experimentation may be necessary in irb to confirm). Often, methods that end with the bang (!) suffix are mutating, but not always and not all mutating methods end with a bang. If a method says method_name -> self that often means it is mutating since it is returning the same string. If it says method_name -> new_string (for example) that means that it is returning a new string and is therefore not mutating self.
+
+*****************************
+1  a = 'hello'
+2
+3  puts a # -> hello
+4  puts a.object_id # -> 70368468160540 (this number will be different for you)
+5
+6  a.upcase 
+7
+8  puts a # -> hello
+9  puts a.object_id  # -> 70368468160540 (this number will be the same as the one above)
+*****************************
+
+Here lines 1-4 are the same as in the code above. However, on line 6, we are calling the method `String#upcase` on the object which local variable `a` references, but this is not a mutating method, so when we call `puts` on line 8, the output is the string `hello` instead of `HELLO` as happened above. Like above, the object ID that is output on lines 4 and 9 is the same. Unlike above, the method called on line 6 did nothing to change the value of the object referenced by the local variable `a`.
+
+*****************************
+1  a = 'name'
+2  b = 'name'
+3  c = 'name'
+4
+5  # Are these three local variables pointing to the same object?
+6
+7  puts a.object_id
+8  puts b.object_id
+9  puts c.object_id
+10
+11 # And when we add these two lines of code... ?
+12
+13 a = c
+14 b = a
+15
+16 puts a.object_id
+17 puts b.object_id
+18 puts c.object_id
+19
+20 # What about now?
+21 a = 5
+22 b = 5
+23 c = 5
+24
+25 puts a.object_id
+26 puts b.object_id
+27 puts c.object_id
+*****************************
+
+Above, we initialize three new local variables (`a`, `b`, and `c`) on lines 1-3 and set each of them to a string object with the value 'name'. Because strings are mutable objects, each of these variables has assigned to it a string object with a different object id. It is not the case that every string with the value 'name' has the same object id. So local variables `a`, `b`, and `c` all point to different objects. The output of calling the `object_id` method on lines 7-8 on local variables `a`, `b`, and `c` will be three different object ID values, one for each string object referenced by said local variables.
+
+On line 13, we reassign the local variable `a` to point to the same object as local variable `c` and on line 14, we reassign the local variable `b` to point to the same object as local variable `a`, which is now pointing to the same string object as local variable `c`. Now all three local variables point to the same string object. The output of calling the `object_id` method on lines 16-18 on local variables `a`, `b`, and `c` will be the same object ID value, as the string object referenced by said local variables is the same.
+
+On lines 21-23 we reassign local variables `a`, `b`, and `c` to the immutable integer with the value `5`. Because integers are immutable, each of these local variables are pointing to the same object. Therefore, when we call the `object_id` method on each local variable on lines 25-27, the output of calling the `puts` method in each case will be the same ID for each local variable as they all reference the same object.
+
+*****************************
+a = :dog
+b = :dog
+c = :dog
+
+puts a.object_id
+puts b.object_id
+puts c.object_id
+*****************************
+
+Note that symbols exhibit this same behavior. They are immutable and will always point to the same object, regardless of the variable to which they are assigned. Therefore local variables  `a`, `b`, and `c` in the code above all reference the same object.
+
+*****************************
+1  a = 'hello '
+2  puts a
+3  puts a.object_id
+4
+5  a += 'world'
+6  puts a
+7  puts a.object_id
+*****************************
+
+Ruby's += (or -=, *=, etc) operator can be confusing. You might think that it is mutating the string object on line 5, but actually it is reassigning. `a +=` is short hand for (`a = `a` + 'world'`, in this case). So we are actually reassigning the local variable `a` to a different string object with the value `hello world`, so the outputs on lines 3 & 7 will not be the same. 

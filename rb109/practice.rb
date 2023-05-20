@@ -1,12 +1,7 @@
+# preparation.rb
+require "pry"
 
-a = 4
-b = 2
-
-loop do
-  c = 3
-  a = c
-  break
-end
-
+a = [1, 2, 3]
+a << 4
+binding.pry     # execution will pause here, allowing you to inspect all objects
 puts a
-puts b

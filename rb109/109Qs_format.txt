@@ -1,0 +1,15 @@
+When working through example problems, answer the following for each:
+
+1. What does the code output? What are the return values?
+
+2. Answer the why behind the output/return:
+  - Focus only on the lines of code that deliver the output and return values.
+
+3. Summarize what the problem demonstrates and why: This problem demonstrates the concept of local variable scope/etc…
+  - This can be at the beginning or end of your answer - personal preference.
+
+4. Using Markdown: use `backticks` (Markdown formatting) to highlight variable names and methods. Don't worry about lines you are referring (ex: On `line 1` we initialize the local variable…)
+
+5. Always aim to answer: What does the following code output and return? Why? What concept does it demonstrate?
+
+
